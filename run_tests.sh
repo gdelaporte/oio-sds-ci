@@ -5,11 +5,14 @@
 function pkg_install () { sudo apt-get -y install $@ ; }
 
 # Define global variable
-export SDS=/home/openio/build
-export TMPDIR=/home/openio/tmp
+export TMPDIR=/tmp
+
+# Retrieve oio-sds source
+cd ${TMPDIR}
+git clone https://github.com/open-io/oio-sds
 
 # Install nose htmloutput (waiting for jenkins integration to implement xunit)
-pip install nose-htmloutput
+sudo pip install nose-htmloutput
 export NOSE_ARGS="--with-html-output --html-out-file=${TMPDIR}/nosestests.html"
 
 # Test require tox
