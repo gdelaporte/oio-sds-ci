@@ -10,7 +10,7 @@ export TMPDIR=/home/openio/tmp
 
 # Install nose htmloutput (waiting for jenkins integration to implement xunit)
 pip install nose-htmloutput
-export NOSE_ARGS="--with-html --html-file=${TMPDIR}/nosestests.html"
+export NOSE_ARGS="--with-html-output --html-out-file=${TMPDIR}/nosestests.html"
 
 # Test require tox
 pkg_install python-tox
