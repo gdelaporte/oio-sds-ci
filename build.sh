@@ -59,6 +59,7 @@ git clone https://github.com/open-io/gridinit.git
 mkdir build-gridinit && cd build-gridinit
 cmake \
         -DCMAKE_INSTALL_PREFIX=$SDS \
+	-DGRIDINIT_SOCK_PATH=/run/gridinit/gridinit.sock\
         -DLD_LIBDIR=lib \
         ../gridinit
 make && make install

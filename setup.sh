@@ -1,9 +1,12 @@
 #!/bin/bash
 
-# Define global variable
-export SDS=/home/openio/build
-export LD_LIBRARY_PATH=/home/openio/build/lib
-export PATH=$PATH:${SDS}"/bin"
+# Define the packager installion function
+# For Ubuntu only in this first version : apt-get
+function pkg_install () { sudo apt-get -y install $@ ; }
 
-# Launch a minimalist instance of oio-sds (no sqlx, no zookeeper, repli x1)
-oio-reset.sh -S SINGLE -X sqlx -X zookeeper -R 1 -B 1
+# Install & launch zookeeper
+pkg_install zookeeper python-zookeeper
+sudo /usr/share/zookeeper/bin/zkServer.sh start
+
+# Install redis
+pkg_install redis-server
