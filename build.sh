@@ -84,7 +84,7 @@ pkg_install \
     libzookeeper-mt-dev
 
 # Required since the SDK_ONLY installation now brings the python part.
-pkg_install python-setuptools
+pkg_install python-setuptools python-cffi
 
 # Build SDS
 git clone https://github.com/open-io/oio-sds.git
