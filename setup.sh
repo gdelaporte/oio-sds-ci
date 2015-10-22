@@ -10,3 +10,6 @@ sudo /usr/share/zookeeper/bin/zkServer.sh start
 
 # Install redis
 pkg_install redis-server
+
+# Install tox
+pkg_install python-tox

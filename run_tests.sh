@@ -18,9 +18,6 @@ git clone https://github.com/open-io/oio-sds
 # Install nose htmloutput (waiting for jenkins integration to implement xunit)
 sudo pip install nose-htmloutput
 
-# Test require tox
-pkg_install python-tox
-
 # Launch a minimalist instance of oio-sds (no sqlx, no zookeeper, repli x1)
 export NOSE_ARGS="--with-html --html-file=${TMPDIR}/nosestests-single.html"
 oio-reset.sh -S SINGLE -X sqlx -X zookeeper -R 1 -B 1
