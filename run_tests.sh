@@ -7,7 +7,7 @@ function pkg_install () { sudo apt-get -y install $@ ; }
 # Define global variable
 export SDS=/home/openio/build
 export LD_LIBRARY_PATH=/home/openio/build/lib
-export SDS_TEST_CONFIG_FILE="/home/vagrant/.oio/sds/conf/test.conf"
+export SDS_TEST_CONFIG_FILE="/home/openio/.oio/sds/conf/test.conf"
 export PATH=$PATH:${SDS}"/bin"
 export TMPDIR=/tmp
 
