@@ -19,7 +19,7 @@ pkg_install git autoconf libtool make gcc
 # asn1c
 git clone https://github.com/open-io/asn1c.git
 cd asn1c
-autoreconf -vi && ./configure --enable-{static,shared} --prefix=$SDS
+autoreconf -vif && ./configure --enable-{static,shared} --prefix=$SDS
 make && make install
 cd ..
 
@@ -27,13 +27,13 @@ cd ..
 
 git clone http://lab.jerasure.org/jerasure/gf-complete.git
 cd gf-complete
-autoreconf -vi && ./configure --prefix=$SDS
+autoreconf -vif && ./configure --prefix=$SDS
 make && make install
 cd ..
 
 git clone http://lab.jerasure.org/jerasure/jerasure.git
 cd jerasure
-autoreconf -vi && ./configure LDFLAGS=-L$SDS/lib/ CPPFLAGS=-I$SDS/include --prefix=$SDS
+autoreconf -vif && ./configure LDFLAGS=-L$SDS/lib/ CPPFLAGS=-I$SDS/include --prefix=$SDS
 make && make install
 mv $SDS/include/jerasure.h $SDS/include/jerasure/jerasure.h
 cd ..
