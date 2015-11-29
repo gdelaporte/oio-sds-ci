@@ -30,7 +30,7 @@ function run_single_instance () {
 function run_repli3_instance () {
 	export ADD_META1=3
 	export ADD_META2=3
-	export NOSE_ARGS="--with-xunit --xunit-file=${TMPDIR}/nosestests-repli3.xml --with-html --html-file=${TMPDIR}/nosestests-repli3.html"
+	export NOSE_ARGS="--with-xunit --xunit-file=${TMPDIR}/nosestests-replix3.xml --with-html --html-file=${TMPDIR}/nosestests-replix3.html"
 	oio-reset.sh -S SINGLE -X sqlx -R 1 -B 1 -D 1 -S THREECOPIES
 	cd ${TMPDIR}/oio-sds/python
 	tox -e func
