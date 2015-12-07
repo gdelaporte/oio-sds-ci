@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# Usage
+while getopts ":r:d" opt; do
+        case $opt in
+                r) REPLICATION_LEVEL="${OPTARG}" ;;
+		d) DUMMY="${OPTARG}" ;;
+                \?) ;;
+        esac
+done
+
+echo "$0" \
+        "-r \"${REPLICATION_LEVEL}\"" \
+        "-d \"${DUMMY}\"" \
+
 # Define the packager installion function
 # For Ubuntu only in this first version : apt-get
 function pkg_install () { sudo apt-get -y install $@ ; }
@@ -36,7 +49,7 @@ function run_repli3_instance () {
 	tox -e func
 }
 
-case "$1" in
+case "$REPLICATION_LEVEL" in
         single)
             run_single_instance
             ;;
