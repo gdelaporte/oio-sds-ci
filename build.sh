@@ -1,5 +1,19 @@
 #!/bin/bash
 
+# Usage
+# Usage
+while getopts ":p:b" opt; do
+        case $opt in
+                p) PULL_ID="${OPTARG}" ;;
+                b) BRANCH="${OPTARG}" ;;
+                \?) ;;
+        esac
+done
+
+echo "$0" \
+        "-p \"${PULL_ID}\"" \
+        "-b \"${BRANCH}\"" \
+
 # Define the packager installion function
 # For Ubuntu only in this first version : apt-get
 function pkg_install () { sudo apt-get -y install $@ ; }
@@ -89,6 +103,14 @@ pkg_install python-setuptools python-cffi
 
 # Build SDS
 git clone https://github.com/open-io/oio-sds.git
+if [ -z "${PULL_ID}" ]
+ then
+	 echo "Checkout Pull Request ${PULL_ID} from branch ${BRANCH}"
+	 cd oio-sds
+	 git fetch origin pull/${PULL_ID}/head:${BRANCH}
+	 git checkout -qf FETCH_HEAD
+	 cd ..
+fi
 mkdir build-oio-sds && cd build-oio-sds
 cmake \
         -DCMAKE_INSTALL_PREFIX=$SDS \
