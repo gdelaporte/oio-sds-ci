@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage
-while getopts ":p:b" opt; do
+while getopts ":p:b:x" opt; do
         case $opt in
                 p) PULL_ID="${OPTARG}" ;;
                 b) BRANCH="${OPTARG}" ;;
