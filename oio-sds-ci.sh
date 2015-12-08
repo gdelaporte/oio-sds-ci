@@ -30,4 +30,4 @@ sudo echo "openio ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/openio
 sudo su - openio -c "git clone https://github.com/GuillaumeDelaporte/oio-sds-ci ${OIO_HOME}/oio-sds-ci"
 sudo ${OIO_HOME}/oio-sds-ci/build.sh -p ${PULL_ID} -b ${BRANCH}
 sudo ${OIO_HOME}/oio-sds-ci/setup.sh
-sudo su - openio -c "${OIO_HOME}/oio-sds-ci/run_tests.sh ${REPLICATION_LEVEL}"
+sudo su - openio -c "${OIO_HOME}/oio-sds-ci/run_tests.sh -r ${REPLICATION_LEVEL} -p ${PULL_ID} -b ${BRANCH}"
