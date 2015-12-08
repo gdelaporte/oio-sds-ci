@@ -106,7 +106,7 @@ if [ ${PULL_ID} ]
  then
 	 echo "Checkout Pull Request ${PULL_ID} from branch ${BRANCH}"
 	 cd oio-sds
-	 git fetch origin pull/${PULL_ID}/head:${BRANCH}
+	 git fetch origin +refs/pull/${PULL_ID}/merge:
 	 git checkout -qf FETCH_HEAD
 	 cd ..
 fi

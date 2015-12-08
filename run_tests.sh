@@ -1,9 +1,11 @@
 #!/bin/bash
 
 # Usage
-while getopts ":r:d" opt; do
+while getopts ":r:p:b:d" opt; do
         case $opt in
                 r) REPLICATION_LEVEL="${OPTARG}" ;;
+		p) PULL_ID="${OPTARG}" ;;
+		b) BRANCH="${OPTARG}" ;;
 		d) DUMMY="${OPTARG}" ;;
                 \?) ;;
         esac
@@ -11,6 +13,8 @@ done
 
 echo "$0" \
         "-r \"${REPLICATION_LEVEL}\"" \
+        "-p \"${PULL_ID}\"" \
+        "-b \"${BRANCH}\"" \
         "-d \"${DUMMY}\"" \
 
 # Define the packager installion function
@@ -27,6 +31,14 @@ export TMPDIR=/tmp
 # Retrieve oio-sds source
 cd ${TMPDIR}
 git clone https://github.com/open-io/oio-sds
+if [ ${PULL_ID} ]
+ then
+         echo "Checkout Pull Request ${PULL_ID} from branch ${BRANCH}"
+         cd oio-sds
+         git fetch origin +refs/pull/${PULL_ID}/merge:
+         git checkout -qf FETCH_HEAD
+         cd ..
+fi
 
 # Install nose htmloutput (waiting for jenkins integration to implement xunit)
 sudo pip install nose-htmloutput
