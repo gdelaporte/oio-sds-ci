@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage
-while getopts ":r:g:p:b" opt; do
+while getopts ":r:g:p:b:x" opt; do
 	case $opt in
 		r) REPLICATION_LEVEL="${OPTARG}" ;;
 		g) GIT_COMMIT="${OPTARG}" ;;
