@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Usage
-# Usage
 while getopts ":p:b" opt; do
         case $opt in
                 p) PULL_ID="${OPTARG}" ;;
@@ -103,7 +102,7 @@ pkg_install python-setuptools python-cffi
 
 # Build SDS
 git clone https://github.com/open-io/oio-sds.git
-if [ -z "${PULL_ID}" ]
+if [ ${PULL_ID} ]
  then
 	 echo "Checkout Pull Request ${PULL_ID} from branch ${BRANCH}"
 	 cd oio-sds
