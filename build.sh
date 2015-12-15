@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # Usage
-while getopts ":p:b:x" opt; do
+while getopts ":p:b:c:x" opt; do
         case $opt in
                 p) PULL_ID="${OPTARG}" ;;
                 b) BRANCH="${OPTARG}" ;;
+                c) COMMIT_ID="${OPTARG}" ;;
                 \?) ;;
         esac
 done
@@ -12,6 +13,7 @@ done
 echo "$0" \
         "-p \"${PULL_ID}\"" \
         "-b \"${BRANCH}\"" \
+        "-c \"${COMMIT_ID}\"" \
 
 # Define the packager installion function
 # For Ubuntu only in this first version : apt-get
@@ -102,6 +104,13 @@ pkg_install python-setuptools python-cffi
 
 # Build SDS
 git clone https://github.com/open-io/oio-sds.git
+if [ ${COMMIT_ID} ]
+ then
+         echo "Checkout commit id ${COMMIT_ID}"
+         cd oio-sds
+         git checkout ${COMMIT_ID} 
+         cd ..
+fi
 if [ ${PULL_ID} ]
  then
 	 echo "Checkout Pull Request ${PULL_ID} from branch ${BRANCH}"

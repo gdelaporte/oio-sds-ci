@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Usage
-while getopts ":r:p:b:d" opt; do
+while getopts ":r:p:b:c:x" opt; do
         case $opt in
                 r) REPLICATION_LEVEL="${OPTARG}" ;;
 		p) PULL_ID="${OPTARG}" ;;
 		b) BRANCH="${OPTARG}" ;;
-		d) DUMMY="${OPTARG}" ;;
+		c) PULL_ID="${OPTARG}" ;;
                 \?) ;;
         esac
 done
@@ -16,6 +16,7 @@ echo "$0" \
         "-p \"${PULL_ID}\"" \
         "-b \"${BRANCH}\"" \
         "-d \"${DUMMY}\"" \
+        "-c \"${COMMIT_ID}\"" \
 
 # Define the packager installion function
 # For Ubuntu only in this first version : apt-get
@@ -31,6 +32,13 @@ export TMPDIR=/tmp
 # Retrieve oio-sds source
 cd ${TMPDIR}
 git clone https://github.com/open-io/oio-sds
+if [ ${COMMIT_ID} ]
+ then
+         echo "Checkout commit id ${COMMIT_ID}"
+         cd oio-sds
+         git checkout ${COMMIT_ID}
+         cd ..
+fi
 if [ ${PULL_ID} ]
  then
          echo "Checkout Pull Request ${PULL_ID} from branch ${BRANCH}"
