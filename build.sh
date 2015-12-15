@@ -108,7 +108,7 @@ if [ ${COMMIT_ID} ]
  then
          echo "Checkout commit id ${COMMIT_ID}"
          cd oio-sds
-         git checkout ${COMMIT_ID} 
+         git checkout -f ${COMMIT_ID} 
          cd ..
 fi
 if [ ${PULL_ID} ]
