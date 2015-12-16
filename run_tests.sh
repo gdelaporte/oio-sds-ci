@@ -6,7 +6,7 @@ while getopts ":r:p:b:c:x" opt; do
                 r) REPLICATION_LEVEL="${OPTARG}" ;;
 		p) PULL_ID="${OPTARG}" ;;
 		b) BRANCH="${OPTARG}" ;;
-		c) PULL_ID="${OPTARG}" ;;
+		c) COMMIT_ID="${OPTARG}" ;;
                 \?) ;;
         esac
 done
