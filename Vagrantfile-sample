@@ -1,0 +1,58 @@
+require 'getoptlong'
+
+opts = GetoptLong.new(
+  [ '--replication-level', '-r',  GetoptLong::OPTIONAL_ARGUMENT ],
+  [ '--pull-id', '-p',  GetoptLong::OPTIONAL_ARGUMENT ],
+  [ '--branch', '-b',  GetoptLong::OPTIONAL_ARGUMENT ],
+  [ '--commit-id', '-c',  GetoptLong::OPTIONAL_ARGUMENT ]
+)
+
+replication_level=''
+pull_id=''
+branch=''
+commit_id=''
+
+opts.each do |opt, arg|
+  case opt
+    when '--replication-level'
+      replication_level="-r " + arg
+    when '--pull-id'
+      pull_id="-p " + arg
+    when '--branch'
+      branch="-b " + arg
+    when '--commit-id'
+      commit_id="-c " + arg
+  end
+end
+
+
+Vagrant.configure('2') do |config|
+
+  config.vm.box       = 'openstack'
+  config.ssh.username = 'ubuntu'
+
+  config.vm.provider :openstack do |os|
+    os.openstack_auth_url = 'http://192.168.1.1:5000/v2.0'
+    os.server_name        = 'vagrant-sample'
+    os.username           = 'user'
+    os.password           = 'pass'
+    os.tenant_name        = 'tenant'
+    os.flavor             = 'm1.small'
+    os.image              = 'UbuntuServer14.04LTS'
+    os.floating_ip_pool   = 'external_network'
+    os.sync_method        = 'none'
+    os.networks = [
+    {
+      name: 'private'
+    }
+    ]
+  end
+  config.vm.provision "shell", inline: <<-SHELL
+     sudo apt-get update
+     sudo apt-get install -y git
+     sudo git clone https://github.com/GuillaumeDelaporte/oio-sds-ci /tmp/oio-sds-ci
+     sudo /tmp/oio-sds-ci/oio-sds-ci.sh #{replication_level} #{pull_id} #{branch} #{commit_id}
+    exit 0
+  SHELL
+end
+
