@@ -39,6 +39,13 @@ if [ ${COMMIT_ID} ]
          git checkout ${COMMIT_ID}
          cd ..
 fi
+if [ ${BRANCH} ]
+ then
+         echo "Checkout from branch ${BRANCH}"
+         cd oio-sds
+         git checkout -b LOCAL_BRANCH origin/${BRANCH}
+         cd ..
+fi
 if [ ${PULL_ID} ]
  then
          echo "Checkout Pull Request ${PULL_ID} from branch ${BRANCH}"

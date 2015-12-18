@@ -111,6 +111,13 @@ if [ ${COMMIT_ID} ]
          git checkout -f ${COMMIT_ID} 
          cd ..
 fi
+if [ ${BRANCH} ]
+ then
+         echo "Checkout from branch ${BRANCH}"
+         cd oio-sds
+         git checkout -b LOCAL_BRANCH origin/${BRANCH}
+         cd ..
+fi
 if [ ${PULL_ID} ]
  then
 	 echo "Checkout Pull Request ${PULL_ID} from branch ${BRANCH}"
@@ -118,13 +125,6 @@ if [ ${PULL_ID} ]
 	 git fetch origin +refs/pull/${PULL_ID}/merge:
 	 git checkout -qf FETCH_HEAD
 	 cd ..
-fi
-if [ ${BRANCH} ]
- then
-         echo "Checkout from branch ${BRANCH}"
-         cd oio-sds
-         git checkout -b LOCAL_BRANCH origin/${BRANCH}
-         cd ..
 fi
 mkdir build-oio-sds && cd build-oio-sds
 cmake \
