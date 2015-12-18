@@ -119,6 +119,13 @@ if [ ${PULL_ID} ]
 	 git checkout -qf FETCH_HEAD
 	 cd ..
 fi
+if [ ${BRANCH} ]
+ then
+         echo "Checkout from branch ${BRANCH}"
+         cd oio-sds
+         git checkout -b LOCAL_BRANCH origin/${BRANCH}
+         cd ..
+fi
 mkdir build-oio-sds && cd build-oio-sds
 cmake \
         -DCMAKE_INSTALL_PREFIX=$SDS \
