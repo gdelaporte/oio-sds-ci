@@ -68,12 +68,24 @@ function run_single_instance () {
 
 # Launch functional test
 function run_repli3_instance () {
+	NB_RAWX=12
 	export ADD_META1=3
 	export ADD_META2=3
 	export NOSE_ARGS="--with-xunit --xunit-file=${TMPDIR}/nosestests-replix3.xml --with-html --html-file=${TMPDIR}/nosestests-replix3.html"
-	oio-reset.sh -S SINGLE -X sqlx -R 1 -B 3 -D 3 -S THREECOPIES
+	oio-reset.sh -S SINGLE -X sqlx -R 1 -B 3 -D 3 -E ${NB_RAWX} -S THREECOPIES
 	cd ${TMPDIR}/oio-sds/python
 	tox -e func
+}
+
+# Launch functional test in rain event
+function run_rain_instance () {
+        export ADD_META1=3
+        export ADD_META2=3
+	
+        export NOSE_ARGS="--with-xunit --xunit-file=${TMPDIR}/nosestests-replix3.xml --with-html --html-file=${TMPDIR}/nosestests-replix3.html"
+        oio-reset.sh -S SINGLE -X sqlx -R 1 -B 3 -D 3 -S THREECOPIES
+        cd ${TMPDIR}/oio-sds/python
+        tox -e func
 }
 
 case "$REPLICATION_LEVEL" in
@@ -84,8 +96,13 @@ case "$REPLICATION_LEVEL" in
         replix3)
             run_repli3_instance
             ;;
+	
+	rain)
+            run_rain_instance
+            ;;
 
         *)
  	    run_single_instance
 	    run_repli3_instance
+	    run_rain_instance
 esac
