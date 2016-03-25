@@ -62,7 +62,7 @@ sudo pip install nose-htmloutput
 function run_single_instance () {
 	export NOSE_ARGS="--with-xunit --xunit-file=${TMPDIR}/nosestests-single.xml --with-html --html-file=${TMPDIR}/nosestests-single.html"
 	oio-reset.sh -S SINGLE -X sqlx -X zookeeper -R 1 -B 1
-	cd ${TMPDIR}/oio-sds/python
+	cd ${TMPDIR}/oio-sds
 	tox -e func
 }
 
@@ -72,7 +72,7 @@ function run_repli3_instance () {
 	export ADD_META2=3
 	export NOSE_ARGS="--with-xunit --xunit-file=${TMPDIR}/nosestests-replix3.xml --with-html --html-file=${TMPDIR}/nosestests-replix3.html"
 	oio-reset.sh -S SINGLE -X sqlx -R 1 -B 3 -D 3 -S THREECOPIES
-	cd ${TMPDIR}/oio-sds/python
+	cd ${TMPDIR}/oio-sds
 	tox -e func
 }
 
@@ -84,7 +84,7 @@ function run_rain_instance () {
         export NOSE_ARGS="--with-xunit --xunit-file=${TMPDIR}/nosestests-rain.xml --with-html --html-file=${TMPDIR}/nosestests-rain.html"
         oio-reset.sh -S SINGLE -X sqlx -R 1 -B 3 -D 3 -E ${NB_RAWX} -S THREECOPIES
 	sleep 10
-        cd ${TMPDIR}/oio-sds/python
+        cd ${TMPDIR}/oio-sds
         tox -e func
 }
 
